@@ -70,7 +70,7 @@ const addVideo = (url) => {
 			NaturaLingua
 		</h1>
 		<div class="text-base">
-			Using our website, you can download youtube videos subtitles as pdf documents, to learn new languages easily.<br>Please pick the language you are studying, and add the video urls whose subtitles you want to download (they need to have manual subtitles both in the language you study and in english). The price is 1.5 euro per pdf.
+			Using our website, you can download youtube videos subtitles as pdf documents, to learn new languages easily.<br>Please pick the language you are studying, and add the video urls whose subtitles you want to download (please make sure they have manual subtitles both in the language you study and in english). The price of a pdf document is 1.5 euro.
 		</div> 
 		
 		<div>
