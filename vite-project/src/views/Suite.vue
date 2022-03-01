@@ -4,7 +4,7 @@
 			Purchase summary
 		</h1>
 		<div class="m-3">
-			After payment, we will send your {{this.$route.params.videoIds.length}} documents to study <b>{{language}}</b> to the email address <b>{{email}}</b> for {{this.$route.params.videoIds.length * 1.5}} euros. If the language or the email address is incorrect, please come back to the previous page and choose the correct document and email address.
+			After payment, we will send your {{this.$route.params.videoIds.length}} documents to study <b>{{language}}</b> to the email address <b>{{email}}</b> for {{ currencyFormat(this.$route.params.videoIds.length * 1.2) }} euros. If the language or the email address is incorrect, please come back to the previous page and choose the correct document and email address.
 		</div>
     <stripe-checkout
       ref="checkoutRef"
@@ -34,13 +34,14 @@ export default {
   },
   data () {
     return {
-			backend:'http://127.0.0.1:5000', //'http://127.0.0.1:5000', // 'https://naturalingua.herokuapp.com'
+			backend:'https://yshegsjk.xyz', //'http://127.0.0.1:5000', // 'https://naturalingua.herokuapp.com'
+			//https://yshegsjk.xyz/
 			// publishableKey: 'pk_live_51KCkGtL309RW9KQT3X8xJbr279hnoVOInlYz1kNWOIzGM5DcBtH78r8BIPXQPKvMxEaerNCugl7pl3XvN79wK6vc00q4OIC5Cl', // import.meta.env.VITE_PUBLISHABLE_KEY_TEST,
-			publishableKey:'pk_test_51KCkGtL309RW9KQTIah48fweWfdjRRhey1fCwrPD4GjYipoXU0tgOzIKm1cfm0Iz4NPcp9PjIGtoObzgLbiMDJba003OIqEMtK',
+			publishableKey:'pk_live_51KCkGtL309RW9KQT3X8xJbr279hnoVOInlYz1kNWOIzGM5DcBtH78r8BIPXQPKvMxEaerNCugl7pl3XvN79wK6vc00q4OIC5Cl',
       loading: false,
       lineItems: [
         {
-          price: 'price_1KQdJIL309RW9KQTUFKNDbVW',
+          price: 'price_1KTjqpL309RW9KQTqNnsBorh',
           quantity: this.$route.params.videoIds.length,
         },
       ],
@@ -60,6 +61,9 @@ export default {
 				this.$refs.checkoutRef.redirectToCheckout();
 			}
     },
+		currencyFormat(num) {
+  		return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+		}
   },
 	computed:{
 		successURL(){return `${this.backend}/success/${this.email}`},

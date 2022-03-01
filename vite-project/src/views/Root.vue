@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 import listOfFiles from '../listOfFiles.json'
 
-let languages = ['French','Spanish','Portuguese','Italian','Vietnamese','Turkish','Japanese','Chinese','Korean','Thai','Russian','Greek','Hebrew','Arabic','Persian','Hindi']
+let languages = ['Arabic', 'Chinese', 'French','Greek','Hebrew','Hindi','Italian','Japanese','Korean','Persian','Portuguese','Russian','Spanish','Thai','Turkish','Vietnamese']
 let language=ref(languages[0])
 
 let email=ref('')
@@ -50,13 +50,15 @@ function youtube_parser(url){
 	return (match&&match[7].length==11)? match[7] : false;
 }
 
-const addVideo = (url) => {
-	let myId = youtube_parser(url)
+function addVideo() {
+	let myId = youtube_parser(url.value)
 	if(myId){
+    url.value = ""
 		videoIds.value.push(myId)
 	}
   else{
-		window.alert('Please write a valid youtube url before adding it to the list')
+		window.alert('Please write a valid youtube url before adding it to the list. To copy a youtube url from the Youtube app, click on the "Share" button next to the like and dislike buttons, and then click on "Copy link". You can then paste the video url on our website and add the video to the list with the "Add video" button.')
+    url.value = ""
 	}
 }
 </script>
@@ -70,21 +72,21 @@ const addVideo = (url) => {
 			NaturaLingua
 		</h1>
 		<div class="text-base">
-			Using our website, you can download youtube videos subtitles as pdf documents, to learn new languages easily.<br>Please pick the language you are studying, and add the video urls whose subtitles you want to download (please make sure they have manual subtitles both in the language you study and in english). The price of a pdf document is 1.5 euro.
+			Using our website, you can download youtube videos subtitles as bilingual pdf documents, to learn new languages easily. Our documents use the latin alphabet to make reading new languages easy and natural.<br> <p class="important">Before choosing a youtube video to transform into a bilingual pdf, please make sure that this youtube video is subtitled both in english and in your target language (else we will not be able to generate the pdf).</p>Please pick the language you are studying below, and add the youtube video urls whose subtitles you want to download. <br>The price of a pdf document is 1.20 euro.
 		</div> 
 		
 		<div>
-			language: 
+			Language: 
 			<select v-model="language" class="m-2 rounded border-1 border-black">
 				<option v-for="bidule in languages" :id="bidule">{{bidule}}</option>
 			</select>
 		</div>
 
 		<div>
-			youtube videos:
+			Youtube videos:
 
 			<input type="text" class="m-2 rounded border-1 border-black" placeholder="copy paste youtube video url here" v-model="url">
-			<button class="bg-blue-400 m-2 p-2 rounded border-1 border-black" @click="addVideo(url)">
+			<button class="bg-blue-400 m-2 p-2 rounded border-1 border-black" @click="addVideo()">
 				<!-- <i class="fas fa-plus-square"></i> -->
 				Add video
 			</button>
@@ -102,13 +104,24 @@ const addVideo = (url) => {
 		</div>
 
 		<div>
-			email :
+			Email :
 			<input autocomplete="email" type="text" class="m-2 rounded border-1 border-black m-2" v-model="email" placeholder="type your email here"/>
 		</div>
 
     <button :class="buttonClass" @click="move"> 
       Go to purchase summary
     </button>
+    <br><br><br>
+    <p>Other websites by NaturaLingua:
+      <ul>
+        <li>
+          <a href="https://naturalingua.netlify.app">https://naturalingua.netlify.app</a>
+        </li>
+        <li>
+          <a href="https://getmoviessubtitles.netlify.app">https://getmoviessubtitles.netlify.app</a>
+        </li>
+      </ul>
+    </p>
 		<br><br><br>
 		<a href="https://www.flaticon.com/free-icons/languages" title="languages icons">Languages icons created by Freepik - Flaticon</a>
   </div>
@@ -116,6 +129,18 @@ const addVideo = (url) => {
 </template>
 
 <style scoped>
+
+.important {
+  color: black;
+  text-decoration: underline black;
+  /* font-weight: bold; */
+}
+
+a {
+  color: blue;
+  text-decoration: underline blue;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -140,6 +165,128 @@ const addVideo = (url) => {
 	/* pointer-events:none; */
 	cursor : default !important;
   @apply bg-gray-500 text-white font-bold py-2 px-4 rounded mt-4
+}
+
+
+/* ------------------- */
+
+
+header {
+  font-size: 2rem;
+}
+
+header,
+form {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form input,
+form button {
+  padding: 0.5rem;
+  font-size: 2rem;
+  /* border: none; */
+  /* background: white; */
+}
+form button {
+  color: #ff6f47;
+  background: #f7fffe;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+form button:hover {
+  background: #ff6f47;
+  color: white;
+}
+.todo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-list {
+  min-width: 30%;
+  list-style: none;
+}
+
+.todo {
+  margin: 0.5rem;
+  background: orange;
+  /* font-size: 1.5rem; */
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 1s ease;
+}
+.filter-todo {
+  padding: 1rem;
+}
+.todo li {
+  flex: 1;
+}
+
+.trash-btn,
+.complete-btn {
+  background: #ff6f47;
+  color: white;
+  /* border: none; */
+  padding: 0.5rem;
+  cursor: pointer;
+  /* font-size: 1rem; */
+}
+.complete-btn {
+  background: rgb(11, 212, 162);
+}
+.todo-item {
+  padding: 0rem 0.5rem;
+}
+
+.fa-trash,
+.fa-check {
+  pointer-events: none;
+}
+
+.fall {
+  transform: translateY(10rem) rotateZ(20deg);
+  opacity: 0;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* Custom Select */
+/* .select {
+  margin: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+select {
+  color: #ff6f47;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  width: 12rem;
+} */
+
+/* Arrow */
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  background: #ff6f47;
+  cursor: pointer;
+  pointer-events: none;
+} 
+
+/* Transition */
+
+.select:hover::after {
+  transform: scale(1.5);
 }
 
 </style>
