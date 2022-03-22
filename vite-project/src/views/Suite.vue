@@ -48,6 +48,7 @@ export default {
 			email:this.$route.params.email,
 			language:this.$route.params.language,
 			languageKnown:this.$route.params.languageKnown,
+			alphabetId:this.$route.params.alphabetId,
 			videoIds:this.$route.params.videoIds,
 			sessionId:''
     };
@@ -72,7 +73,7 @@ export default {
 		stripeUrl(){
 			// localhost:5000/stripe_pay/french/nicolas.klarsfeld@gmail.com?id=E3Blxs0Wfco&id=StXPXDij6rw
 			// return `${this.backend}/stripe_pay/${this.language}/${this.email}?id=${this.$route.params.videoIds.join('&id=')}`
-			return `${this.backend}/test/${this.language}/${this.languageKnown}/${this.email}?id=${this.$route.params.videoIds.join('&id=')}`
+			return `${this.backend}/test/${this.language}/${this.languageKnown}/${this.alphabetId}/${this.email}?id=${this.$route.params.videoIds.join('&id=')}`
 		}
 	},
 	async mounted() {

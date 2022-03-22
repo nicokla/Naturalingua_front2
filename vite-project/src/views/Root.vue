@@ -8,6 +8,11 @@ let languages = ['Arabic', 'Chinese', 'English', 'French','Greek','Hebrew','Hind
 let language=ref(languages[0])
 let languageKnown=ref(languages[0])
 
+let alphabets=[{name:'Roman alphabet',id:'roman'},
+							 {name:'Original alphabet',id:'original'},
+							 {name:'Both alphabets',id:'both'},]
+let alphabetId=ref(alphabets[0].id)
+
 let email=ref('')
 let url=ref('')
 let videoIds=ref([])
@@ -39,6 +44,7 @@ const move = () => {
 				email: unref(email),
 				language: unref(language),
 				languageKnown: unref(languageKnown),
+				alphabetId: unref(alphabetId)
       }
     })
 	else{
@@ -88,6 +94,13 @@ function addVideo() {
 			Language you learn : 
 			<select v-model="language" class="m-2 rounded border-1 border-black">
 				<option v-for="bidule in languages" :id="bidule">{{bidule}}</option>
+			</select>
+		</div>
+
+		<div>
+			Alphabet(s) used for the language you learn : 
+			<select v-model="alphabetId" class="m-2 rounded border-1 border-black">
+				<option v-for="alphabet in alphabets" :value="alphabet.id">{{alphabet.name}}</option>
 			</select>
 		</div>
 
