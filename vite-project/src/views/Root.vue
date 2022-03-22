@@ -4,8 +4,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 import listOfFiles from '../listOfFiles.json'
 
-let languages = ['Arabic', 'Chinese', 'French','Greek','Hebrew','Hindi','Italian','Japanese','Korean','Persian','Portuguese','Russian','Spanish','Thai','Turkish','Vietnamese']
+let languages = ['Arabic', 'Chinese', 'English', 'French','Greek','Hebrew','Hindi','Italian','Japanese','Korean','Persian','Portuguese','Russian','Spanish','Thai','Turkish','Vietnamese']
 let language=ref(languages[0])
+let languageKnown=ref(languages[0])
 
 let email=ref('')
 let url=ref('')
@@ -37,6 +38,7 @@ const move = () => {
 				videoIds: unref(videoIds),
 				email: unref(email),
 				language: unref(language),
+				languageKnown: unref(languageKnown),
       }
     })
 	else{
@@ -76,7 +78,14 @@ function addVideo() {
 		</div> 
 		
 		<div>
-			Language: 
+			Language you already know : 
+			<select v-model="languageKnown" class="m-2 rounded border-1 border-black">
+				<option v-for="machin in languages" :id="machin">{{machin}}</option>
+			</select>
+		</div>
+
+		<div>
+			Language you learn : 
 			<select v-model="language" class="m-2 rounded border-1 border-black">
 				<option v-for="bidule in languages" :id="bidule">{{bidule}}</option>
 			</select>
